@@ -84,7 +84,7 @@
             <section class="zz__panel section section--split" id="who" data-zz-panel data-step="1">
                 <span class="accent-rail accent-rail--right accent-rail--cyan" aria-hidden="true"></span>
                 <span class="accent-dot accent-dot--magenta" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">→ RIGHT</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '← يسار' : '→ RIGHT' }}</div>
                 <div class="container split">
                     <aside class="split__sticky">
                         <p class="section-label mono reveal">
@@ -109,7 +109,7 @@
             <section class="zz__panel section section--alt" id="vision" data-zz-panel data-step="2">
                 <span class="accent-rail accent-rail--left accent-rail--peach" aria-hidden="true"></span>
                 <span class="accent-corner accent-corner--magenta" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">↓ DOWN</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '↓ تحت' : '↓ DOWN' }}</div>
                 <div class="container split">
                     <aside class="split__sticky">
                         <p class="section-label mono reveal">
@@ -133,7 +133,7 @@
 
             <section class="zz__panel section" id="mission" data-zz-panel data-step="3">
                 <span class="accent-rail accent-rail--right accent-rail--magenta" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">→ RIGHT</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '← يسار' : '→ RIGHT' }}</div>
                 <div class="container split">
                     <aside class="split__sticky">
                         <p class="section-label mono reveal">{{ __('home.mission.label') }}</p>
@@ -172,7 +172,7 @@
             <section class="zz__panel section section--alt" id="values" data-zz-panel data-step="4">
                 <span class="accent-rail accent-rail--left accent-rail--cyan" aria-hidden="true"></span>
                 <span class="accent-slash accent-slash--peach" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">↓ DOWN</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '↓ تحت' : '↓ DOWN' }}</div>
                 <div class="container zz__panel-inner">
                     <div class="section-head">
                         <p class="section-label mono reveal">{{ __('home.values.label') }}</p>
@@ -201,7 +201,7 @@
 
             <section class="zz__panel section section--promise" id="promise" data-zz-panel data-step="5">
                 <span class="accent-rail accent-rail--right accent-rail--peach" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">→ RIGHT</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '← يسار' : '→ RIGHT' }}</div>
                 <div class="promise-marquee" aria-hidden="true">
                     <div class="promise-marquee__track">
                         @for ($i = 0; $i < 4; $i++)
@@ -231,7 +231,7 @@
             <section class="zz__panel section" id="services" data-zz-panel data-step="6">
                 <span class="accent-rail accent-rail--left accent-rail--magenta" aria-hidden="true"></span>
                 <span class="accent-dot accent-dot--cyan" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">↓ DOWN</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '↓ تحت' : '↓ DOWN' }}</div>
                 <div class="container zz__panel-inner">
                     <div class="section-head section-head--row">
                         <div>
@@ -277,7 +277,7 @@
             <section class="zz__panel section section--cta" id="cta" data-zz-panel data-step="7">
                 <span class="accent-rail accent-rail--right accent-rail--cyan" aria-hidden="true"></span>
                 <span class="accent-corner accent-corner--peach" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">→ RIGHT</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '← يسار' : '→ RIGHT' }}</div>
                 <div class="cta-pulse" aria-hidden="true"></div>
                 <div class="container cta-block">
                     <p class="section-label mono reveal">{{ __('home.cta.label') }}</p>
@@ -295,7 +295,7 @@
 
             <section class="zz__panel zz__panel--footer" id="contact" data-zz-panel data-step="8">
                 <span class="accent-rail accent-rail--left accent-rail--peach" aria-hidden="true"></span>
-                <div class="zz__dir mono" aria-hidden="true">↓ DOWN</div>
+                <div class="zz__dir mono" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '↓ تحت' : '↓ DOWN' }}</div>
                 <div class="container footer-grid zz__footer">
                     <div class="footer-brand reveal">
                         <p class="section-label">{{ __('home.contact.label') }}</p>
