@@ -53,13 +53,13 @@
                             <span class="btn__fill" aria-hidden="true"></span>
                             <x-icon name="rocket" class="ico--btn ico--spin-hover" />
                             <span class="btn__label">{{ __('home.hero.cta_primary') }}</span>
-                            <span class="btn__arrow" aria-hidden="true">→</span>
+                            <span class="btn__arrow" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '←' : '→' }}</span>
                         </a>
                         <a href="#who" class="btn btn--ghost btn--magnetic" data-zz-jump="who">
                             <span class="btn__fill" aria-hidden="true"></span>
                             <x-icon name="target" class="ico--btn ico--pulse-hover" />
                             <span class="btn__label">{{ __('home.hero.cta_secondary') }}</span>
-                            <span class="btn__arrow" aria-hidden="true">→</span>
+                            <span class="btn__arrow" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '←' : '→' }}</span>
                         </a>
                     </div>
 
@@ -72,11 +72,13 @@
                 </div>
 
                 <div class="hero__scroll mono" aria-hidden="true">
-                    <span class="hero__scroll-label">NEXT →</span>
+                    <span class="hero__scroll-label">{{ app()->getLocale() === 'ar' ? 'التالي ←' : 'NEXT →' }}</span>
                     <div class="hero__scroll-track">
                         <span class="hero__scroll-dot"></span>
                     </div>
                 </div>
+
+                <x-panel-next icon="spark" :label="__('home.nav.who')" to="who" class="panel-next--hero" />
             </section>
 
             <section class="zz__panel section section--split" id="who" data-zz-panel data-step="1">
@@ -101,6 +103,7 @@
                         <p class="body-lg muted reveal">{{ __('home.who.p2') }}</p>
                     </div>
                 </div>
+                <x-panel-next icon="eye" :label="__('home.nav.vision')" to="vision" />
             </section>
 
             <section class="zz__panel section section--alt" id="vision" data-zz-panel data-step="2">
@@ -125,6 +128,7 @@
                         <p class="body-lg muted reveal">{{ __('home.vision.p2') }}</p>
                     </div>
                 </div>
+                <x-panel-next icon="target" :label="__('home.nav.mission')" to="mission" />
             </section>
 
             <section class="zz__panel section" id="mission" data-zz-panel data-step="3">
@@ -162,6 +166,7 @@
                         </div>
                     </div>
                 </div>
+                <x-panel-next icon="strategy" :label="__('home.nav.values')" to="values" />
             </section>
 
             <section class="zz__panel section section--alt" id="values" data-zz-panel data-step="4">
@@ -191,6 +196,7 @@
                         @endforeach
                     </div>
                 </div>
+                <x-panel-next icon="honesty" :label="__('home.nav.next')" to="promise" />
             </section>
 
             <section class="zz__panel section section--promise" id="promise" data-zz-panel data-step="5">
@@ -219,6 +225,7 @@
                         @endif
                     </p>
                 </div>
+                <x-panel-next icon="growth" :label="__('home.nav.services')" to="services" />
             </section>
 
             <section class="zz__panel section" id="services" data-zz-panel data-step="6">
@@ -264,6 +271,7 @@
                         @endforeach
                     </div>
                 </div>
+                <x-panel-next icon="platforms" :label="__('home.nav.work_with_us')" to="cta" />
             </section>
 
             <section class="zz__panel section section--cta" id="cta" data-zz-panel data-step="7">
@@ -279,9 +287,10 @@
                         <span class="btn__fill" aria-hidden="true"></span>
                         <x-icon name="whatsapp" class="ico--btn ico--shake-hover" />
                         <span class="btn__label">{{ __('home.cta.button') }}</span>
-                        <span class="btn__arrow" aria-hidden="true">→</span>
+                        <span class="btn__arrow" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '←' : '→' }}</span>
                     </a>
                 </div>
+                <x-panel-next icon="rocket" :label="__('home.nav.contact')" to="contact" />
             </section>
 
             <section class="zz__panel zz__panel--footer" id="contact" data-zz-panel data-step="8">
@@ -345,16 +354,19 @@
                         <span class="mono muted">{{ __('home.footer.rights') }}</span>
                     </div>
                 </div>
+                <x-panel-next icon="deer" :label="__('home.nav.back_top')" to="top" class="panel-next--end" />
             </section>
         </div>
 
         <div class="zz__hud mono" aria-hidden="true">
-            <span data-zz-hud-dir>→ RIGHT</span>
+            <span data-zz-hud-dir>{{ app()->getLocale() === 'ar' ? '← يسار' : '→ RIGHT' }}</span>
             <div class="zz__hud-bar"><span data-zz-hud-fill></span></div>
             <span data-zz-hud-step>01 / 09</span>
         </div>
     </div>
 </div>
 
-<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+<div class="deer-cursor" id="deer-cursor" aria-hidden="true">
+    <x-icon name="deer" class="deer-cursor__ico" />
+</div>
 @endsection

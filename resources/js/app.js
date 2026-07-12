@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothAnchors();
     initMagneticButtons();
     initTiltCards();
-    initCursorGlow();
+    initDeerCursor();
 });
 
 function initNav() {
@@ -44,8 +44,9 @@ function initNav() {
 
 /**
  * Zig-zag SNAP:
- * One wheel / swipe = hide current panel, show next full panel.
- * Path alternates RIGHT → DOWN → RIGHT → DOWN.
+ * One wheel / swipe / next-button = full next panel.
+ * LTR: RIGHT → DOWN → RIGHT → DOWN
+ * RTL: LEFT  → DOWN → LEFT  → DOWN
  */
 function initZigZagScroll() {
     const root = document.querySelector('[data-zz]');
@@ -54,6 +55,8 @@ function initZigZagScroll() {
     const hudDir = document.querySelector('[data-zz-hud-dir]');
     const hudFill = document.querySelector('[data-zz-hud-fill]');
     const hudStep = document.querySelector('[data-zz-hud-step]');
+    const isRtl = document.documentElement.dir === 'rtl';
+    const isAr = document.documentElement.lang === 'ar';
 
     if (!root || !world || !panels.length) return;
 
@@ -69,8 +72,11 @@ function initZigZagScroll() {
         path = [{ col, row, id: panels[0].id }];
 
         for (let i = 1; i < panels.length; i += 1) {
-            if (i % 2 === 1) col += 1;
-            else row += 1;
+            if (i % 2 === 1) {
+                col += isRtl ? -1 : 1; // RTL: move left (يمين → شمال)
+            } else {
+                row += 1;
+            }
             path.push({ col, row, id: panels[i].id });
         }
 
@@ -82,8 +88,11 @@ function initZigZagScroll() {
     };
 
     const nextDirectionLabel = () => {
-        if (current >= path.length - 1) return '■ END';
-        return (current + 1) % 2 === 1 ? '→ RIGHT' : '↓ DOWN';
+        if (current >= path.length - 1) return isAr ? '■ النهاية' : '■ END';
+        if ((current + 1) % 2 === 1) {
+            return isAr || isRtl ? '← يسار' : '→ RIGHT';
+        }
+        return isAr ? '↓ تحت' : '↓ DOWN';
     };
 
     const activatePanel = (index) => {
@@ -167,11 +176,18 @@ function initZigZagScroll() {
 
     const onKey = (event) => {
         if (mq.matches) return;
-        if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
+        const nextKeys = isRtl
+            ? ['ArrowDown', 'ArrowLeft', 'PageDown', ' ']
+            : ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
+        const prevKeys = isRtl
+            ? ['ArrowUp', 'ArrowRight', 'PageUp']
+            : ['ArrowUp', 'ArrowLeft', 'PageUp'];
+
+        if (nextKeys.includes(event.key)) {
             event.preventDefault();
             step(1);
         }
-        if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
+        if (prevKeys.includes(event.key)) {
             event.preventDefault();
             step(-1);
         }
@@ -229,6 +245,15 @@ function initZigZagScroll() {
         if (index < 0) return;
         goTo(index);
     };
+
+    window.zzNext = () => step(1);
+
+    document.querySelectorAll('[data-zz-next]').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.zzNext();
+        });
+    });
 
     setup();
     world.addEventListener('transitionend', onTransitionEnd);
@@ -400,9 +425,11 @@ function initTiltCards() {
     });
 }
 
-function initCursorGlow() {
-    const glow = document.getElementById('cursor-glow');
-    if (!glow || window.matchMedia('(pointer: coarse)').matches) return;
+function initDeerCursor() {
+    const cursor = document.getElementById('deer-cursor');
+    if (!cursor || window.matchMedia('(pointer: coarse)').matches) return;
+
+    document.body.classList.add('has-deer-cursor');
 
     let x = 0;
     let y = 0;
@@ -415,22 +442,25 @@ function initCursorGlow() {
         y = event.clientY;
         if (!active) {
             active = true;
-            glow.classList.add('is-active');
+            cursor.classList.add('is-active');
             requestAnimationFrame(render);
         }
     });
 
+    document.addEventListener('mousedown', () => cursor.classList.add('is-down'));
+    document.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
+
     document.addEventListener('mouseleave', () => {
-        glow.classList.remove('is-active');
+        cursor.classList.remove('is-active');
         active = false;
     });
 
     function render() {
         if (!active) return;
-        currentX += (x - currentX) * 0.12;
-        currentY += (y - currentY) * 0.12;
-        glow.style.left = `${currentX}px`;
-        glow.style.top = `${currentY}px`;
+        currentX += (x - currentX) * 0.2;
+        currentY += (y - currentY) * 0.2;
+        cursor.style.left = `${currentX}px`;
+        cursor.style.top = `${currentY}px`;
         requestAnimationFrame(render);
     }
 }

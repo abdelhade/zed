@@ -14,6 +14,8 @@ return [
         'services' => 'خدماتنا',
         'contact' => 'تواصل',
         'work_with_us' => 'اشتغل معانا',
+        'next' => 'التالي',
+        'back_top' => 'ارجع للبداية',
     ],
 
     'hero' => [
@@ -22,7 +24,7 @@ return [
         'subtitle' => 'شريك إبداعي للنمو للبراندات اللي عايزة تتشاف — وتتفتكر.',
         'cta_primary' => 'اشتغل معانا',
         'cta_secondary' => 'شوف السجل',
-        'coords' => '30.0444° N / 31.2357° E',
+        'coords' => 'ز  ',
         'status' => 'SYSTEM ONLINE',
     ],
 

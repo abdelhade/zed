@@ -14,6 +14,8 @@ return [
         'services' => 'Services',
         'contact' => 'Contact',
         'work_with_us' => 'Work with us',
+        'next' => 'Next',
+        'back_top' => 'Back to start',
     ],
 
     'hero' => [
@@ -22,7 +24,7 @@ return [
         'subtitle' => 'A creative growth partner for brands that want to be seen — and remembered.',
         'cta_primary' => 'Work with us',
         'cta_secondary' => 'View the log',
-        'coords' => '30.0444° N / 31.2357° E',
+        'coords' => 'z',
         'status' => 'SYSTEM ONLINE',
     ],
 
