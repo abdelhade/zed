@@ -7,6 +7,7 @@
 --}}
 <div class="zz" id="zz" data-zz>
     <div class="zz__sticky">
+        @include('partials.section-rail')
         <div class="zz__world" data-zz-world>
             <section class="zz__panel hero" id="top" data-zz-panel data-step="0">
                 <span class="accent-rail accent-rail--left accent-rail--magenta" aria-hidden="true"></span>
@@ -61,13 +62,6 @@
                             <span class="btn__label">{{ __('home.hero.cta_secondary') }}</span>
                             <span class="btn__arrow" aria-hidden="true">{{ app()->getLocale() === 'ar' ? '←' : '→' }}</span>
                         </a>
-                    </div>
-
-                    <div class="hero__icons" aria-hidden="true">
-                        <button type="button" class="float-ico float-ico--1 mad-ico" tabindex="-1"><x-icon name="spark" /></button>
-                        <button type="button" class="float-ico float-ico--2 mad-ico" tabindex="-1"><x-icon name="eye" /></button>
-                        <button type="button" class="float-ico float-ico--3 mad-ico" tabindex="-1"><x-icon name="brand" /></button>
-                        <button type="button" class="float-ico float-ico--4 mad-ico" tabindex="-1"><x-icon name="growth" /></button>
                     </div>
                 </div>
 

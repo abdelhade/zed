@@ -101,6 +101,11 @@ function initZigZagScroll() {
             panel.classList.remove('is-leaving');
         });
 
+        document.querySelectorAll('.section-rail__btn').forEach((btn) => {
+            const id = btn.getAttribute('data-section');
+            btn.classList.toggle('is-active', id === panels[index]?.id);
+        });
+
         panels[index].querySelectorAll('.reveal:not(.is-visible)').forEach((el) => {
             el.classList.add('is-visible');
         });

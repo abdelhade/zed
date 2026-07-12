@@ -2680,3 +2680,172 @@ html[dir='ltr'] .panel-next:hover .panel-next__arrow {
     }
 }
 
+/* ─── Section rail (icons → pages + dropdown title) ─── */
+.section-rail {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    display: none;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.55rem 0.4rem;
+    border: 1px solid var(--border);
+    background: rgba(26, 4, 75, 0.82);
+    backdrop-filter: blur(10px);
+}
+
+@media (min-width: 900px) {
+    .section-rail {
+        display: flex;
+    }
+}
+
+/* Arabic: rail on physical left — never covers ZED */
+html[dir='rtl'] .section-rail {
+    left: 0.85rem;
+    right: auto;
+}
+
+html[dir='ltr'] .section-rail {
+    right: 0.85rem;
+    left: auto;
+}
+
+.section-rail__btn {
+    position: relative;
+    width: 2.55rem;
+    height: 2.55rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition:
+        color 0.25s var(--ease),
+        border-color 0.25s var(--ease),
+        background 0.25s var(--ease),
+        transform 0.3s var(--ease);
+}
+
+.section-rail__ico {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.section-rail__ico .ico svg {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.section-rail__drop {
+    position: absolute;
+    top: 50%;
+    white-space: nowrap;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid var(--magenta);
+    background: var(--navy);
+    color: var(--cream);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.25s var(--ease),
+        visibility 0.25s var(--ease),
+        transform 0.3s var(--ease);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    z-index: 5;
+}
+
+.section-rail__drop::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+}
+
+/* RTL rail left → tip opens to the right */
+html[dir='rtl'] .section-rail__drop {
+    left: calc(100% + 0.65rem);
+    right: auto;
+    transform: translateY(-50%) translateX(-6px);
+}
+
+html[dir='rtl'] .section-rail__drop::before {
+    right: 100%;
+    left: auto;
+    border-right-color: var(--magenta);
+}
+
+html[dir='rtl'] .section-rail__btn:hover .section-rail__drop,
+html[dir='rtl'] .section-rail__btn:focus-visible .section-rail__drop {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* LTR rail right → tip opens to the left */
+html[dir='ltr'] .section-rail__drop {
+    right: calc(100% + 0.65rem);
+    left: auto;
+    transform: translateY(-50%) translateX(6px);
+}
+
+html[dir='ltr'] .section-rail__drop::before {
+    left: 100%;
+    right: auto;
+    border-left-color: var(--magenta);
+}
+
+html[dir='ltr'] .section-rail__btn:hover .section-rail__drop,
+html[dir='ltr'] .section-rail__btn:focus-visible .section-rail__drop {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+.section-rail__btn:hover,
+.section-rail__btn:focus-visible {
+    color: var(--cream);
+    border-color: var(--cyan);
+    background: rgba(43, 171, 226, 0.12);
+    transform: scale(1.08);
+    outline: none;
+}
+
+.section-rail__btn.is-active {
+    color: var(--magenta);
+    border-color: var(--magenta);
+    background: rgba(235, 0, 140, 0.15);
+    box-shadow: 0 0 0 1px rgba(235, 0, 140, 0.35);
+}
+
+.section-rail__btn:nth-child(3n + 1) .section-rail__ico { color: var(--magenta); }
+.section-rail__btn:nth-child(3n + 2) .section-rail__ico { color: var(--cyan); }
+.section-rail__btn:nth-child(3n + 3) .section-rail__ico { color: var(--peach); }
+
+.section-rail__btn.is-active .section-rail__ico {
+    color: var(--magenta);
+}
+
+html[dir='rtl'] .hero__inner {
+    padding-inline-start: 4.5rem;
+    max-width: min(100% - 2.5rem, 920px);
+    margin-inline-end: auto;
+    margin-inline-start: 0;
+}
+
+html[dir='rtl'] .hero__brand-name {
+    position: relative;
+    z-index: 2;
+}
+
