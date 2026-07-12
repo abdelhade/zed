@@ -65,6 +65,25 @@
                     </div>
                 </div>
 
+                <div class="hero__icons">
+                    <button type="button" class="float-ico float-ico--1 mad-ico" data-zz-jump="who" aria-label="{{ __('home.nav.who') }}">
+                        <x-icon name="eye" />
+                        <span class="float-ico__tip">{{ __('home.nav.who') }}</span>
+                    </button>
+                    <button type="button" class="float-ico float-ico--2 mad-ico" data-zz-jump="vision" aria-label="{{ __('home.nav.vision') }}">
+                        <x-icon name="target" />
+                        <span class="float-ico__tip">{{ __('home.nav.vision') }}</span>
+                    </button>
+                    <button type="button" class="float-ico float-ico--3 mad-ico" data-zz-jump="services" aria-label="{{ __('home.nav.services') }}">
+                        <x-icon name="platforms" />
+                        <span class="float-ico__tip">{{ __('home.nav.services') }}</span>
+                    </button>
+                    <button type="button" class="float-ico float-ico--4 mad-ico" data-zz-jump="cta" aria-label="{{ __('home.nav.work_with_us') }}">
+                        <x-icon name="rocket" />
+                        <span class="float-ico__tip">{{ __('home.nav.work_with_us') }}</span>
+                    </button>
+                </div>
+
                 <div class="hero__scroll mono" aria-hidden="true">
                     <span class="hero__scroll-label">{{ app()->getLocale() === 'ar' ? 'التالي ←' : 'NEXT →' }}</span>
                     <div class="hero__scroll-track">

@@ -2386,20 +2386,35 @@ html[dir='rtl'] .social-list a:hover {
     }
 }
 
-/* Floating hero icons */
+/* Floating hero icons — clear of brand / ZED */
 .hero__icons {
     position: absolute;
-    inset: 18% 8% 20% 55%;
+    z-index: 4;
     pointer-events: none;
-    z-index: 1;
+    width: min(280px, 32vw);
+    height: min(340px, 55vh);
+}
+
+/* LTR: icons on the right, away from left-aligned brand */
+html[dir='ltr'] .hero__icons {
+    top: 22%;
+    right: 4%;
+    left: auto;
+}
+
+/* RTL: icons on the left, away from right-aligned ZED */
+html[dir='rtl'] .hero__icons {
+    top: 22%;
+    left: 5.5rem;
+    right: auto;
 }
 
 .float-ico {
     position: absolute;
-    width: 3rem;
-    height: 3rem;
+    width: 3.25rem;
+    height: 3.25rem;
     border: 1px solid var(--border-strong);
-    background: rgba(10, 12, 16, 0.75);
+    background: rgba(26, 4, 75, 0.88);
     color: var(--text-dim);
     pointer-events: auto;
     cursor: pointer;
@@ -2407,45 +2422,86 @@ html[dir='rtl'] .social-list a:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
+    backdrop-filter: blur(6px);
 }
 
 .float-ico .ico svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.float-ico__tip {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    white-space: nowrap;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--magenta);
+    background: var(--navy);
+    color: var(--cream);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease), transform 0.25s var(--ease);
+    pointer-events: none;
+    z-index: 6;
+}
+
+.float-ico:hover .float-ico__tip,
+.float-ico:focus-visible .float-ico__tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 .float-ico--1 {
-    top: 8%;
-    left: 10%;
+    top: 0;
+    left: 12%;
+    color: var(--magenta);
+    border-color: rgba(235, 0, 140, 0.55);
     animation: float-a 7s ease-in-out infinite;
 }
 
 .float-ico--2 {
-    top: 35%;
+    top: 28%;
     right: 8%;
+    left: auto;
+    color: var(--cyan);
+    border-color: rgba(43, 171, 226, 0.55);
     animation: float-b 9s ease-in-out infinite;
 }
 
 .float-ico--3 {
-    bottom: 20%;
-    left: 28%;
+    bottom: 18%;
+    left: 18%;
+    color: var(--peach);
+    border-color: rgba(233, 167, 122, 0.55);
     animation: float-c 6s ease-in-out infinite;
 }
 
 .float-ico--4 {
-    top: 55%;
-    left: 55%;
+    bottom: 0;
+    right: 18%;
+    left: auto;
+    color: var(--pink);
+    border-color: rgba(233, 86, 159, 0.55);
     animation: float-a 8s ease-in-out infinite reverse;
 }
 
-.float-ico:hover {
-    color: var(--white);
-    border-color: var(--white);
-    background: #0a0a0a;
+.float-ico:hover,
+.float-ico:focus-visible {
+    color: var(--cream);
+    border-color: var(--magenta);
+    background: rgba(115, 41, 81, 0.75);
     animation-play-state: paused;
-    transform: scale(1.15) rotate(8deg);
-    box-shadow: 0 0 0 1px var(--white), 0 16px 40px rgba(0, 0, 0, 0.45);
+    transform: scale(1.12) rotate(6deg);
+    box-shadow: 0 0 0 1px var(--magenta), 0 16px 40px rgba(0, 0, 0, 0.45);
     z-index: 5;
+    outline: none;
 }
 
 .float-ico:hover .ico svg {
@@ -2456,7 +2512,7 @@ html[dir='rtl'] .social-list a:hover {
     content: '';
     position: absolute;
     inset: -6px;
-    border: 1px dashed rgba(255, 255, 255, 0.45);
+    border: 1px dashed rgba(235, 0, 140, 0.55);
     animation: ico-box-spin 1.1s linear infinite;
 }
 
