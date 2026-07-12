@@ -370,10 +370,10 @@ function initParallax() {
 }
 
 function initSmoothAnchors() {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', (event) => {
-            const jump = anchor.getAttribute('data-zz-jump') || anchor.getAttribute('data-hs-jump');
-            const id = jump || (anchor.getAttribute('href') || '').replace('#', '');
+    document.querySelectorAll('[data-zz-jump], a[href^="#"]').forEach((el) => {
+        el.addEventListener('click', (event) => {
+            const jump = el.getAttribute('data-zz-jump') || el.getAttribute('data-hs-jump');
+            const id = jump || (el.getAttribute('href') || '').replace('#', '');
             if (!id) return;
 
             event.preventDefault();
