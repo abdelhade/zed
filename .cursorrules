@@ -1,0 +1,66 @@
+# ZED Studio — Cursor Rules
+
+## Project
+Laravel marketing studio site for **ZED Studio** (strategy-first creative & marketing).
+Primary deliverable: a bilingual (AR/EN) **scrollable homepage**. Keep scope on the home experience unless asked otherwise.
+
+---
+
+## 1. Visual Style & Theming
+
+- **Dark Mode / Low-Key Lighting:** Primary field uses **navy `#1a044b`** and **plum `#732951`** (≈60%). Secondary cream `#fcf9ed` / peach `#e9a77a` (≈30%). Accents magenta `#eb008c` + cyan `#2babe2` (≈10%) only as flavor — thin rails, tinted words, icon color pops — to break visual symmetry. Do not flood the UI with accents.
+- **Monochromatic & High Contrast:** Cream text on navy. Accents are sparse interruptions, not equal partners.
+- **Minimalism & Brutalism (Hybrid):** Generous negative space + sharp edges. Asymmetry via a single side rail, corner mark, slash, or one tinted word — never balanced chrome on both sides.
+
+---
+
+## 2. Typography
+
+- **Monospaced** (Space Mono, Roboto Mono, or Courier): numbers, coordinates, dates, process codes, stats — terminal / data-log vibe.
+- **Sans-serif geometric** (Montserrat, Helvetica Neue, or Inter): headings and body. Clear and sharp.
+- **Hierarchy:** Extreme size/weight contrast — oversized display headlines vs. small, readable body copy.
+- Arabic: use a clean geometric Arabic sans (e.g. Cairo, Tajawal) that matches the Latin tone. Respect RTL when locale is `ar`.
+
+---
+
+## 3. Interactions & Effects
+
+- **Micro-interactions:** Subtle hover only (slight background shift, small arrow move). No bounce, jiggle, or playful overshoot.
+- **Reveal on Scroll:** Slow fade-in / slide-up as sections enter the viewport (mystery / gradual reveal).
+- **Parallax:** Background layers move at different speeds from text for depth — keep it restrained.
+- **Number counters:** Animate stats when they enter the viewport (e.g. operations, cities). Use mono type for digits.
+
+---
+
+## 4. Layout & Grid
+
+- **Bento / card grid** for services and features: light borders, dashboard-like panels. Cards serve structure, not fluff.
+- **Asymmetrical layouts** where useful (text vs. media) for visual flow.
+- **Sticky elements:** Nav and/or section labels may stick within a section while scrolling.
+- One job per section: one headline, short supporting copy, clear content block.
+- Hero: brand-first. First viewport = brand + one headline + one short line + CTA group. No stats strips, promo chips, or clutter overlays on hero media.
+
+---
+
+## 5. Architectural UI Concepts
+
+- **Data-driven design:** Coordinates, metrics, and numbered sequences are visual design elements (authority), not afterthoughts.
+- **Scannability:** Short paragraphs, bullets, numbered lists — never dense text walls.
+- **CTAs:** Decisive, simple buttons (“Work with us”, “View the log”). Do not compete with content.
+
+---
+
+## 6. Content & Locale
+
+- Site is bilingual: Arabic (`ar`) and English (`en`). Store copy in Laravel lang files; do not hardcode dual strings in blades when avoidable.
+- Toggle locale via route/session; set `dir="rtl"` for Arabic, `dir="ltr"` for English.
+- Contact: WhatsApp/phone `01080909920`, site `www.zedstudiio.com`, socials as in the brief (Instagram, Facebook, TikTok, Behance, LinkedIn, Snapchat).
+
+---
+
+## 7. Implementation Notes
+
+- Prefer Blade + Vite + CSS (Tailwind allowed as utility layer under the design tokens above).
+- Keep homepage as a single long scroll with anchored sections.
+- Match reference energy of goodzii.com / peace-cake.com (clear services + contact focus) without copying their visual identity — ZED uses the dark brutalist-minimal system above.
+- Do not expand into multi-page CMS features unless requested.
