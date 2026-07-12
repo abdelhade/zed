@@ -380,6 +380,6 @@
 </div>
 
 <div class="deer-cursor" id="deer-cursor" aria-hidden="true">
-    <x-icon name="deer" class="deer-cursor__ico" />
+    <img src="{{ asset('cursor-deer.png') }}" alt="" class="deer-cursor__img" width="64" height="64" draggable="false">
 </div>
 @endsection
