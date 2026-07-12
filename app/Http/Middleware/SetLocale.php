@@ -12,10 +12,18 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = Session::get('locale', config('app.locale', 'ar'));
+        // Only honor session locale after an explicit user switch (EN/AR).
+        // Otherwise always default to Arabic.
+        if (Session::get('locale_chosen') === true) {
+            $locale = Session::get('locale', 'ar');
+        } else {
+            $locale = 'ar';
+            Session::put('locale', 'ar');
+        }
 
         if (! in_array($locale, ['en', 'ar'], true)) {
             $locale = 'ar';
+            Session::put('locale', 'ar');
         }
 
         App::setLocale($locale);

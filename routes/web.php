@@ -16,8 +16,9 @@ Route::middleware(SetLocale::class)->group(function () {
         }
 
         Session::put('locale', $locale);
+        Session::put('locale_chosen', true);
         App::setLocale($locale);
 
-        return redirect()->to(url()->previous() !== url()->current() ? url()->previous() : route('home'));
+        return redirect()->route('home');
     })->name('locale.switch');
 });

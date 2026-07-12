@@ -32,7 +32,7 @@
     --white: var(--cream);
     --ink: #1a044b;
 
-    --font-sans: 'Montserrat', 'Cairo', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Montserrat', 'Alexandria', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'Space Mono', ui-monospace, monospace;
 
     --container: 1180px;
@@ -41,7 +41,7 @@
 }
 
 html[dir='rtl'] {
-    --font-sans: 'Cairo', 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Alexandria', 'Montserrat', ui-sans-serif, system-ui, sans-serif;
 }
 
 *,

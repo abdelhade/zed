@@ -19,7 +19,7 @@ Primary deliverable: a bilingual (AR/EN) **scrollable homepage**. Keep scope on 
 - **Monospaced** (Space Mono, Roboto Mono, or Courier): numbers, coordinates, dates, process codes, stats — terminal / data-log vibe.
 - **Sans-serif geometric** (Montserrat, Helvetica Neue, or Inter): headings and body. Clear and sharp.
 - **Hierarchy:** Extreme size/weight contrast — oversized display headlines vs. small, readable body copy.
-- Arabic: use a clean geometric Arabic sans (e.g. Cairo, Tajawal) that matches the Latin tone. Respect RTL when locale is `ar`.
+- Arabic: use **Alexandria** as the primary Arabic sans. Respect RTL when locale is `ar`.
 
 ---
 
