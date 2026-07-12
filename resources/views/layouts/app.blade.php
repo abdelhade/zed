@@ -9,7 +9,7 @@
     <link rel="icon" href="{{ asset('favicon.svg') }}?v=2" type="image/svg+xml">
     <link rel="icon" href="{{ asset('favicon.png') }}?v=2" type="image/png" sizes="128x128">
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}?v=2">
-    <meta name="theme-color" content="#1a044b">
+    <meta name="theme-color" content="#050505">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

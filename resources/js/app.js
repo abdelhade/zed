@@ -43,7 +43,7 @@ function initNav() {
 }
 
 /**
- * Zig-zag SNAP:
+ * Zig-zag SNAP on all screen sizes:
  * One wheel / swipe / next-button = full next panel.
  * LTR: RIGHT → DOWN → RIGHT → DOWN
  * RTL: LEFT  → DOWN → LEFT  → DOWN
@@ -60,10 +60,10 @@ function initZigZagScroll() {
 
     if (!root || !world || !panels.length) return;
 
-    const mq = window.matchMedia('(max-width: 899px)');
     let path = [];
     let current = 0;
     let locked = false;
+    let touchX = 0;
     let touchY = 0;
 
     const buildPath = () => {
@@ -73,7 +73,7 @@ function initZigZagScroll() {
 
         for (let i = 1; i < panels.length; i += 1) {
             if (i % 2 === 1) {
-                col += isRtl ? -1 : 1; // RTL: move left (يمين → شمال)
+                col += isRtl ? -1 : 1;
             } else {
                 row += 1;
             }
@@ -127,7 +127,6 @@ function initZigZagScroll() {
     };
 
     const goTo = (index, { instant = false } = {}) => {
-        if (mq.matches) return;
         if (index < 0 || index >= panels.length) return;
         if (index === current && !instant) return;
         if (locked && !instant) return;
@@ -156,6 +155,7 @@ function initZigZagScroll() {
             world.style.transition = '';
             locked = false;
             root.classList.remove('is-animating');
+            activatePanel(current);
         } else {
             world.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
         }
@@ -164,12 +164,11 @@ function initZigZagScroll() {
     };
 
     const step = (delta) => {
-        if (locked || mq.matches) return;
+        if (locked) return;
         goTo(current + delta);
     };
 
     const onWheel = (event) => {
-        if (mq.matches) return;
         event.preventDefault();
         if (locked) return;
         if (Math.abs(event.deltaY) < 10 && Math.abs(event.deltaX) < 10) return;
@@ -180,7 +179,6 @@ function initZigZagScroll() {
     };
 
     const onKey = (event) => {
-        if (mq.matches) return;
         const nextKeys = isRtl
             ? ['ArrowDown', 'ArrowLeft', 'PageDown', ' ']
             : ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
@@ -199,14 +197,22 @@ function initZigZagScroll() {
     };
 
     const onTouchStart = (event) => {
+        touchX = event.changedTouches[0].clientX;
         touchY = event.changedTouches[0].clientY;
     };
 
     const onTouchEnd = (event) => {
-        if (mq.matches || locked) return;
+        if (locked) return;
+        const dx = touchX - event.changedTouches[0].clientX;
         const dy = touchY - event.changedTouches[0].clientY;
-        if (Math.abs(dy) < 40) return;
-        step(dy > 0 ? 1 : -1);
+        if (Math.abs(dx) < 36 && Math.abs(dy) < 36) return;
+
+        if (Math.abs(dy) >= Math.abs(dx)) {
+            step(dy > 0 ? 1 : -1);
+        } else {
+            // LTR: swipe left = next | RTL: swipe right = next
+            step(isRtl ? (dx < 0 ? 1 : -1) : dx > 0 ? 1 : -1);
+        }
     };
 
     const onTransitionEnd = (event) => {
@@ -218,20 +224,7 @@ function initZigZagScroll() {
     };
 
     const setup = () => {
-        if (mq.matches) {
-            document.body.style.overflow = '';
-            root.style.height = 'auto';
-            world.style.transform = '';
-            world.style.transition = 'none';
-            panels.forEach((panel) => {
-                panel.style.left = '';
-                panel.style.top = '';
-                panel.classList.add('is-active');
-                panel.classList.remove('is-leaving');
-            });
-            return;
-        }
-
+        document.body.classList.add('zz-locked');
         document.body.style.overflow = 'hidden';
         buildPath();
         root.style.height = '100vh';
@@ -240,12 +233,6 @@ function initZigZagScroll() {
     };
 
     window.zzJumpTo = (id) => {
-        if (mq.matches) {
-            const el = document.getElementById(id);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-            return;
-        }
-
         const index = panels.findIndex((panel) => panel.id === id);
         if (index < 0) return;
         goTo(index);
@@ -267,7 +254,6 @@ function initZigZagScroll() {
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchend', onTouchEnd, { passive: true });
     window.addEventListener('resize', setup);
-    mq.addEventListener('change', setup);
 }
 
 function animateCounter(el) {
@@ -289,55 +275,16 @@ function initReveal() {
     const items = document.querySelectorAll('.reveal');
     if (!items.length) return;
 
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-
     items.forEach((el, index) => {
         el.style.transitionDelay = `${Math.min(index % 6, 5) * 60}ms`;
-
         if (el.closest('#top')) {
             el.classList.add('is-visible');
-            return;
         }
-
-        if (el.closest('[data-zz-panel]') && window.matchMedia('(min-width: 900px)').matches) {
-            return;
-        }
-
-        observer.observe(el);
     });
 }
 
 function initCounters() {
-    // Desktop: triggered by zig-zag active panel
-    // Mobile: intersection observer
-    if (window.matchMedia('(min-width: 900px)').matches) return;
-
-    const counters = document.querySelectorAll('[data-count]');
-    if (!counters.length) return;
-
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    animateCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        { threshold: 0.4 }
-    );
-
-    counters.forEach((el) => observer.observe(el));
+    // Triggered by zig-zag when services panel activates
 }
 
 function initParallax() {

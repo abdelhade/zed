@@ -7,30 +7,29 @@
 
 /* ─── Design tokens (ZED Studio palette) ─── */
 :root {
-    /* Primary 60% */
+    /* Brand colors (flavor) */
     --navy: #1a044b;
     --plum: #732951;
-    /* Secondary 30% */
     --cream: #fcf9ed;
     --peach: #e9a77a;
-    /* Accent 10% */
     --magenta: #eb008c;
     --cyan: #2babe2;
     --pink: #e9569f;
 
-    --bg: var(--navy);
-    --bg-alt: #140338;
-    --surface: #220a42;
-    --surface-plum: var(--plum);
-    --border: rgba(252, 249, 237, 0.12);
-    --border-strong: rgba(233, 167, 122, 0.35);
+    /* Black field + brand tint */
+    --bg: #050505;
+    --bg-alt: #0a0a0a;
+    --surface: #111111;
+    --surface-plum: #1a0a12;
+    --border: rgba(252, 249, 237, 0.1);
+    --border-strong: rgba(233, 167, 122, 0.32);
     --text: var(--cream);
-    --text-dim: rgba(252, 249, 237, 0.72);
-    --muted: rgba(233, 167, 122, 0.75);
+    --text-dim: rgba(252, 249, 237, 0.7);
+    --muted: rgba(233, 167, 122, 0.72);
     --accent: var(--peach);
-    --accent-soft: rgba(235, 0, 140, 0.12);
+    --accent-soft: rgba(235, 0, 140, 0.1);
     --white: var(--cream);
-    --ink: #1a044b;
+    --ink: #050505;
 
     --font-sans: 'Montserrat', 'Alexandria', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'Space Mono', ui-monospace, monospace;
@@ -501,10 +500,11 @@ html[dir='rtl'] .nav-links a::after {
     position: absolute;
     inset: -10% 0 0;
     background:
-        radial-gradient(ellipse 70% 50% at 75% 15%, rgba(235, 0, 140, 0.22), transparent 55%),
-        radial-gradient(ellipse 50% 45% at 15% 80%, rgba(43, 171, 226, 0.18), transparent 55%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(115, 41, 81, 0.45), transparent 60%),
-        linear-gradient(180deg, #220a55 0%, var(--navy) 100%);
+        radial-gradient(ellipse 70% 50% at 75% 15%, rgba(235, 0, 140, 0.16), transparent 55%),
+        radial-gradient(ellipse 50% 45% at 15% 80%, rgba(43, 171, 226, 0.12), transparent 55%),
+        radial-gradient(ellipse 45% 40% at 50% 55%, rgba(115, 41, 81, 0.22), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 40% 0%, rgba(26, 4, 75, 0.45), transparent 55%),
+        linear-gradient(180deg, #0c0c0c 0%, #050505 100%);
     z-index: 0;
 }
 
@@ -1363,45 +1363,151 @@ html[dir='rtl'] .mad-service__bg {
     }
 }
 
-/* Mobile fallback: normal vertical stack */
+/* ─── Responsive: same snap experience, adapted chrome ─── */
+body.zz-locked {
+    overscroll-behavior: none;
+    touch-action: pan-y;
+}
+
+.zz__panel {
+    -webkit-overflow-scrolling: touch;
+}
+
 @media (max-width: 899px) {
-    .zz {
-        height: auto !important;
+    .container {
+        width: min(100% - 1.5rem, var(--container));
     }
 
-    .zz__sticky {
-        position: relative;
-        height: auto;
-        overflow: visible;
+    .hero__brand-name {
+        font-size: clamp(3.2rem, 18vw, 5.5rem);
     }
 
-    .zz__world {
-        transform: none !important;
-        height: auto;
+    .hero__title,
+    .display-title {
+        font-size: clamp(1.25rem, 5.5vw, 1.85rem);
+        max-width: 20ch;
     }
 
-    .zz__panel {
-        position: relative !important;
-        inset: auto !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: auto;
-        transform: none !important;
-        border-left: 0;
-        border-right: 0;
+    .hero__subtitle,
+    .body-lg {
+        font-size: 0.95rem;
     }
 
-    .zz__panel.hero {
-        min-height: 100vh;
+    .hero__cta {
+        gap: 0.55rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.72rem;
     }
 
     .zz__panel.section {
-        display: block;
-        padding: clamp(4rem, 10vw, 6rem) 0;
+        align-items: flex-start;
+        padding: calc(var(--nav-h) + 1rem) 0 5.5rem;
+        overflow-y: auto;
+    }
+
+    .zz__panel.hero {
+        padding: calc(var(--nav-h) + 1.25rem) 0 5.5rem;
+        align-items: flex-end;
+    }
+
+    .zz__panel--footer {
+        padding-bottom: 5.5rem;
+        overflow-y: auto;
     }
 
     .zz__dir {
         display: none;
+    }
+
+    .zz__hud {
+        display: none;
+    }
+
+    .process__list {
+        grid-template-columns: 1fr;
+    }
+
+    .process__item {
+        border-top: 1px solid var(--border);
+        border-inline-start: 0 !important;
+    }
+
+    .bento--values {
+        grid-template-columns: 1fr;
+        max-height: none;
+    }
+
+    .bento--services {
+        grid-template-columns: 1fr;
+    }
+
+    .section-head--row {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        gap: 1.25rem;
+    }
+
+    .stat__num {
+        font-size: 2.25rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .panel-next {
+        inset-inline: 1rem;
+        bottom: 4.75rem;
+        width: calc(100% - 2rem);
+        max-width: 280px;
+        margin-inline: auto;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        justify-content: center;
+    }
+
+    html[dir='rtl'] .panel-next {
+        transform: translateX(50%);
+        inset-inline-start: auto;
+        inset-inline-end: 50%;
+    }
+
+    .panel-next:hover {
+        transform: translateX(-50%) translateY(-3px);
+    }
+
+    html[dir='rtl'] .panel-next:hover {
+        transform: translateX(50%) translateY(-3px);
+    }
+
+    .accent-rail,
+    .accent-slash,
+    .accent-dot,
+    .accent-corner,
+    .hero__scroll,
+    .orb--ring {
+        display: none;
+    }
+
+    .hero__orbs .orb--1 {
+        width: 100px;
+        height: 100px;
+        opacity: 0.5;
+    }
+
+    .nav-actions .btn--sm {
+        display: none;
+    }
+
+    html[dir='rtl'] .hero__inner {
+        padding-inline-start: 0;
+        max-width: 100%;
     }
 }
 
@@ -2056,7 +2162,8 @@ html[dir='rtl'] .social-list a:hover {
 
 .section--alt {
     background:
-        linear-gradient(135deg, rgba(115, 41, 81, 0.35), transparent 40%),
+        linear-gradient(135deg, rgba(115, 41, 81, 0.18), transparent 42%),
+        linear-gradient(180deg, rgba(26, 4, 75, 0.2), transparent 50%),
         var(--bg-alt);
 }
 
@@ -2414,7 +2521,7 @@ html[dir='rtl'] .hero__icons {
     width: 3.25rem;
     height: 3.25rem;
     border: 1px solid var(--border-strong);
-    background: rgba(26, 4, 75, 0.88);
+    background: rgba(5, 5, 5, 0.88);
     color: var(--text-dim);
     pointer-events: auto;
     cursor: pointer;
@@ -2518,7 +2625,45 @@ html[dir='rtl'] .hero__icons {
 
 @media (max-width: 899px) {
     .hero__icons {
-        display: none;
+        display: flex;
+        position: absolute;
+        top: auto;
+        bottom: 5.75rem;
+        left: 50%;
+        right: auto;
+        width: auto;
+        height: auto;
+        transform: translateX(-50%);
+        gap: 0.55rem;
+        z-index: 5;
+    }
+
+    html[dir='rtl'] .hero__icons {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    .float-ico {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 2.6rem;
+        height: 2.6rem;
+        animation: float-c 5s ease-in-out infinite;
+    }
+
+    .float-ico__tip {
+        bottom: calc(100% + 0.4rem);
+        top: auto;
+        transform: translateX(-50%) translateY(4px);
+    }
+
+    .float-ico:hover .float-ico__tip,
+    .float-ico:focus-visible .float-ico__tip {
+        transform: translateX(-50%) translateY(0);
     }
 }
 
@@ -2579,7 +2724,7 @@ html[dir='rtl'] .hero__icons {
     gap: 0.75rem;
     padding: 0.65rem 0.85rem 0.65rem 0.65rem;
     border: 1px solid rgba(235, 0, 140, 0.45);
-    background: rgba(26, 4, 75, 0.85);
+    background: rgba(5, 5, 5, 0.9);
     color: var(--cream);
     cursor: pointer;
     backdrop-filter: blur(8px);
@@ -2663,16 +2808,6 @@ html[dir='ltr'] .panel-next:hover .panel-next__arrow {
     }
 }
 
-@media (max-width: 899px) {
-    .panel-next {
-        position: relative;
-        inset: auto;
-        margin: 1.5rem auto 0;
-        display: flex;
-        width: max-content;
-    }
-}
-
 /* ─── Deer cursor ─── */
 .has-deer-cursor,
 .has-deer-cursor * {
@@ -2742,19 +2877,13 @@ html[dir='ltr'] .panel-next:hover .panel-next__arrow {
     top: 50%;
     transform: translateY(-50%);
     z-index: 20;
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 0.45rem;
     padding: 0.55rem 0.4rem;
     border: 1px solid var(--border);
-    background: rgba(26, 4, 75, 0.82);
+    background: rgba(5, 5, 5, 0.88);
     backdrop-filter: blur(10px);
-}
-
-@media (min-width: 900px) {
-    .section-rail {
-        display: flex;
-    }
 }
 
 /* Arabic: rail on physical left — never covers ZED */
@@ -2766,6 +2895,57 @@ html[dir='rtl'] .section-rail {
 html[dir='ltr'] .section-rail {
     right: 0.85rem;
     left: auto;
+}
+
+@media (max-width: 899px) {
+    .section-rail {
+        top: auto;
+        bottom: 0.65rem;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 0.35rem;
+        padding: 0.4rem 0.5rem;
+        max-width: calc(100vw - 1.25rem);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .section-rail::-webkit-scrollbar {
+        display: none;
+    }
+
+    .section-rail__btn {
+        width: 2.2rem;
+        height: 2.2rem;
+        flex: 0 0 auto;
+    }
+
+    .section-rail__drop {
+        top: auto;
+        bottom: calc(100% + 0.45rem);
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) translateY(4px) !important;
+    }
+
+    .section-rail__drop::before {
+        top: 100%;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+        border: 5px solid transparent !important;
+        border-top-color: var(--magenta) !important;
+    }
+
+    html[dir='rtl'] .section-rail__btn:hover .section-rail__drop,
+    html[dir='rtl'] .section-rail__btn:focus-visible .section-rail__drop,
+    html[dir='ltr'] .section-rail__btn:hover .section-rail__drop,
+    html[dir='ltr'] .section-rail__btn:focus-visible .section-rail__drop {
+        transform: translateX(-50%) translateY(0) !important;
+    }
 }
 
 .section-rail__btn {
